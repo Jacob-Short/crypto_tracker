@@ -6,10 +6,9 @@ import argparse
 import logging
 import signal
 import time
-import datetime
+from datetime import datetime
 import os
 from pprint import pprint as pp
-
 
 def create_parse():
     """Returns an instance of argparse.ArgumentParser"""
@@ -59,7 +58,16 @@ def main(args):
 
     def command_line(args):
         crypto = CryptoCurrency(secrets.API_KEY)
-        pp(crypto.get_price(args))
+        args_upper = args.upper()
+        instance = crypto.get_price(args_upper)
+        # pp(instance)
+        data = {
+            'name': instance[args_upper]['name'],
+            'date_added': instance[args_upper]['date_added'],
+            'cmc_rank': instance[args_upper]['cmc_rank'],
+            'quote': instance[args_upper]['quote'],
+        }
+        pp(data)
 
 
     if symbol:
