@@ -10,8 +10,8 @@ from pprint import pprint as pp
 def gui_view():
     welcome_center_column = [
         [
-            sg.Text("Welcome"),
-            # sg.In(size=(25,1), enable_events=True, key="-FOLDER-")
+            sg.Text("Welcome:"),
+            sg.In(size=(20,1), enable_events=True, key="-SYMBOL-")
         ]
     ]
 
@@ -23,7 +23,6 @@ def gui_view():
 
     enter_symbol_column = [
         [
-            sg.In(size=(45,1), enable_events=True, key="-SYMBOL-")
         ],
         [
             sg.Listbox(
@@ -38,12 +37,17 @@ def gui_view():
             sg.Column(welcome_center_column),
             sg.VSeparator(),
             sg.Column(crypto_viewer_column),
+            sg.Button("NEXT", size=5)
+
         ],
         [
             sg.Column(enter_symbol_column),
-            sg.Button("Search")
-
+        ],
+        [
+            sg.Button("EXIT", size=36),
+            sg.Button("Profile", size=36)
         ]
+
     ]
 
     window = sg.Window("Crypto Tracker", layout, margins=(200,50))
