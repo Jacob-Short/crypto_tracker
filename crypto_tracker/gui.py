@@ -58,7 +58,7 @@ def gui_view():
         event, values = window.read()
         # End program if user closes windows or 
         # presses the OK button 
-        if event == "Search" or event == sg.WIN_CLOSED:
+        if event == "EXIT" or event == sg.WIN_CLOSED:
             break
         if event == '-SYMBOL-':
             symbol = values['-SYMBOL-']
