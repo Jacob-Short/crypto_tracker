@@ -196,7 +196,6 @@ class EditProfileView(View):
                 initial={
                     "first_name": profile_user.first_name,
                     "last_name": profile_user.last_name,
-                    "email": profile_user.email,
                     "profile_picture": profile_user.profile_picture,
                     "bio": profile_user.bio,
                 }
@@ -218,17 +217,16 @@ class EditProfileView(View):
 
     def post(self, request, id):
 
-        profile_user = User.objects.get(id=id)
+        target_user = User.objects.get(id=id)
+        profile_user = Profile.objects.get(user=target_user)
         form = EditProfileForm(request.POST, request.FILES)
         try:
             if form.is_valid():
                 data = form.cleaned_data
                 profile_user.first_name = data["first_name"]
                 profile_user.last_name = data["last_name"]
-                profile_user.email = data["email"]
-                profile_user.profile_picture = data["profile_picture"]
                 profile_user.bio = data["bio"]
-                profile_user.password = data["password"]
+                profile_user.profile_picture = data["profile_picture"]
                 profile_user.save()
                 messages.add_message(
                     request,
@@ -237,7 +235,7 @@ class EditProfileView(View):
                 )
                 return redirect(reverse("profile", args=(id,)))
         except Exception as err:
-            print(err)
+            print(f"This is error:\n{err}")
             messages.add_message(
                 request,
                 message="There was an error editing your profile.",
