@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+</head>
+
+<body>
+  {% block content %}
+  <div>
+    <h1>Welcome</h1>
+  </div>
+  <div>
+    <h2>details about site</h2>
+  </div>
+  <h3>Have an Account?</h3>
+  <a href='/login/'>
+    <button>Login</button>
+  </a>
+  <h3>Don't have an Account?</h3>
+  <a href='/register/'>
+    <button>Sign Up</button>
+  </a>
+  {% endblock %}
+</body>
+
+</html>

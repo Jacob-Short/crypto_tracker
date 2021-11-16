@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Detail</title>
+  </head>
+
+  
+    {% block content %}
+    <body>
+      {% if target_user == signed_in_user %}
+        <h3>Welcome in {{ signed_in_user.first_name }} </h3>
+
+        <div class="card" style="width: 18rem;">
+          <img src="{{ user.profile_picture.url }}" class="card-img-top" alt="photo of user">
+          <div class="card-body">
+            <h5 class="card-title">{{ target_user }}</h5>
+            {% if target_user.bio %}
+            <p class="card-text">Bio: {{ target_user.bio }}</p>
+            {% else %}
+            <p class="card-text">User does not have a bio yet</p>
+            {% endif %}
+
+          </div>
+          <ul class="list-group list-group-flush">
+            {% if target_user.email %}
+            <li class="list-group-item">Email: {{ tagret_user.email }}</li>
+            {% else %}
+            <p class="card-text">User does not have a email yet</p>
+            {% endif %}
+            <li class="list-group-item">isNew: {{ target_user.is_new }}<li>
+          </ul>
+          <div class="card-body">
+            <a href="/messages/{{ signed_in_user.id }}/" class="card-link">Messages</a>
+            <a href="/user_posts/" class="card-link">My posts</a>
+            {% if profile %}
+            <a href="/edit_account/{{signed_in_user.id}}/" class="card-link">Edit Profile</a>
+            {% else %}
+            <a href="/createprofile/" class="card-link">Create Profile</a>
+            {% endif %}
+            <a href="#" class="card-link">Preferences</a>
+          </div>
+        </div>
+        {% else %}
+        <h3>{{ tagret_user.username }}'s Profile </h3>
+
+        <div class="card" style="width: 18rem;">
+          <img src="{{ target_user.picture }}" class="card-img-top" alt="user_photo">
+          <div class="card-body">
+            <h5 class="card-title">Email: {{ target_user }}</h5>
+            {% if target_user.full_name %}
+            <h5 class="card-title">{{ target_user.full_name }}</h5>
+            {% endif %}
+            <p class="card-text">Bio: {{ target_user.bio }}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Staff: {{ tagret_user.is_staff }}</li>
+          </ul>
+          <div class="card-body">
+            <a href="/messages/{{ signed_in_user.id }}/" class="card-link">Send Message</a>
+            <a href="/user_posts/{{tagret_user.id}}/" class="card-link">{{ target_user.first_name }}'s Posts</a>
+          </div>
+        </div>  
+        {% endif %}
+
+    </body>
+    {% endblock %}
+  </body>
+  </html>

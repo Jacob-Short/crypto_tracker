@@ -12,6 +12,8 @@ PySimpleGUI = "^4.47.0"
 PySimpleGUIQt = "^0.35.0"
 mysqlclient = "^2.0.3"
 mysql = "^0.0.3"
+Django = "^3.2.9"
+Pillow = "^8.4.0"
 
 [tool.poetry.dev-dependencies]
 autopep8 = "^1.5.7"

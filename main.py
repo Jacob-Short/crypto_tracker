@@ -68,6 +68,7 @@ def main(args):
             'quote': instance[args_upper]['quote'],
         }
         pp(data)
+        print(data['name'])
 
 
     if symbol:
