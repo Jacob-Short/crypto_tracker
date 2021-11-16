@@ -1,10 +1,15 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/style.css' %}"
+    />
     <title>User Detail</title>
   </head>
 
@@ -12,9 +17,10 @@
     {% block content %}
     <body>
       {% if target_user == signed_in_user %}
+      <div class='profile-container'>
         <h3>Welcome in {{ signed_in_user.first_name }} </h3>
 
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 26rem;">
         {% if target_user.profile.profile_picture.url %}
           <img src="{{ target_user.profile.profile_picture.url }}" class="card-img-top" alt="photo of user">
           {% endif %}
@@ -31,11 +37,9 @@
             {% else %}
             <p class="card-text">User does not have a email yet</p>
             {% endif %}
-            <li class="list-group-item">isNew: {{ target_user.is_new }}<li>
           </ul>
           <div class="card-body">
-            <a href="/messages/{{ signed_in_user.id }}/" class="card-link">Messages</a>
-            <a href="/user_posts/" class="card-link">My posts</a>
+            <a href="#" class="card-link">Messages</a>
             {% if profile %}
             <a href="/edit_account/{{signed_in_user.id}}/" class="card-link">Edit Profile</a>
             {% else %}
@@ -44,7 +48,9 @@
             <a href="#" class="card-link">Preferences</a>
           </div>
         </div>
+        </div>
         {% else %}
+        <div class='profile-container'>
         <h3>{{ tagret_user.username }}'s Profile </h3>
 
         <div class="card" style="width: 18rem;">
@@ -63,7 +69,8 @@
             <a href="/messages/{{ signed_in_user.id }}/" class="card-link">Send Message</a>
             <a href="/user_posts/{{tagret_user.id}}/" class="card-link">{{ target_user.first_name }}'s Posts</a>
           </div>
-        </div>  
+        </div>
+        </div>
         {% endif %}
 
     </body>

@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path
 
 from authentication.urls import urlpatterns as user_account_urls
+from api.urls import urlpatterns as api_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
 urlpatterns += user_account_urls
+urlpatterns += api_urls

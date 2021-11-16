@@ -18,12 +18,15 @@ from django.contrib import messages
 
 
 class Dashboard(View):
-    '''private view for users to look upp cryptos
+    '''private view for users to look up cryptos
     and be able to save them and track their gains
     and losses
     '''
     def get(self, request):
-        pass
+        template = 'api_dashboard.html'
+        signed_in_user = request.user
+        context = {"signed_in_user": signed_in_user}
+        return render(request, template, context)
 
     def post(self, request):
         pass
