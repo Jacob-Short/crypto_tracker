@@ -32,7 +32,6 @@ class Profile(models.Model):
         max_length=100,
         default="images/default_profile_picture.jpeg",
     )
-    email = models.EmailField()
     bio = models.TextField(_("bio"), null=True, blank=True)
     is_new = models.BooleanField(
         _("new status"),

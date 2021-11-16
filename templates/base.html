@@ -24,7 +24,7 @@
       type="text/css"
       href="{% static 'css/style.css' %}"
     />
-    <title>Mama 5</title>
+    <title>cTracker</title>
   </head>
 
   <body>
@@ -32,7 +32,7 @@
     {% if signed_in_user.username %}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/home/">Mama-5-Fitness</a>
+        <a class="navbar-brand" href="/home/">cTracker</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -58,19 +58,19 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Services
+                Item
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="/tranont/">Tranont</a></li>
-                <li><a class="dropdown-item" href="/posts/">Network</a></li>
+                <li><a class="dropdown-item" href="/tranont/">Item</a></li>
+                <li><a class="dropdown-item" href="/posts/">Item</a></li>
                 <li><hr class="dropdown-divider" /></li>
                 <li class="nav-item">
-                  <li><a class="dropdown-item" href="#">Fitness</a></li>
+                  <li><a class="dropdown-item" href="#">Item</a></li>
                   </li>
               </ul>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/about/">About</a>
+                <a class="nav-link active" aria-current="page" href="/about/">Item</a>
               </li>
           </ul>
           <a class="nav-link active" aria-current="page" href="/notifications/{{ signed_in_user.id }}/">Notifications: 0</a>
@@ -95,7 +95,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/home/">Mama-5-Fitness</a>
+          <a class="navbar-brand" href="/home/">cTracker</a>
           <button
             class="navbar-toggler"
             type="button"

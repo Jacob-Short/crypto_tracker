@@ -8,11 +8,16 @@ from authentication.models import User
 
 
 class CreateProfileForm(forms.Form):
-    first_name = forms.CharField(max_length=150)
-    last_name = forms.CharField(max_length=150)
-    email = EmailField()
-    bio = forms.CharField(widget=forms.Textarea)
-    # profile_picture = forms.ImageField(required=False)
+    first_name = forms.CharField(max_length=150, required=False)
+    last_name = forms.CharField(max_length=150, required=False)
+    bio = forms.CharField(widget=forms.Textarea, required=False)
+    profile_picture = forms.ImageField(required=False)
+
+class EditProfileForm(forms.Form):
+    first_name = forms.CharField(max_length=150, required=False)
+    last_name = forms.CharField(max_length=150, required=False)
+    bio = forms.CharField(widget=forms.Textarea, required=False)
+    profile_picture = forms.ImageField(required=False)
 
 class RegisterForm(forms.ModelForm):
     class Meta:

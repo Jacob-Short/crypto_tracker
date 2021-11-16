@@ -11,6 +11,6 @@ urlpatterns = [
     path('register/', user_account_views.RegisterView.as_view(), name='register'),
     path('profile/<int:id>/', user_account_views.UserView.as_view(), name='profile'),
     path('createprofile/', user_account_views.CreateProfileView.as_view(), name='createprofile'),
-    # path('edit_account/<int:id>/', user_account_views.EditProfileView.as_view(), name='edit_profile'),
+    path('edit_account/<int:id>/', user_account_views.EditProfileView.as_view(), name='edit_profile'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

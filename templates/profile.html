@@ -15,19 +15,19 @@
         <h3>Welcome in {{ signed_in_user.first_name }} </h3>
 
         <div class="card" style="width: 18rem;">
-          <img src="{{ user.profile_picture.url }}" class="card-img-top" alt="photo of user">
+        {% if target_user.profile.profile_picture.url %}
+          <img src="{{ target_user.profile.profile_picture.url }}" class="card-img-top" alt="photo of user">
+          {% endif %}
           <div class="card-body">
             <h5 class="card-title">{{ target_user }}</h5>
-            {% if target_user.bio %}
-            <p class="card-text">Bio: {{ target_user.bio }}</p>
-            {% else %}
-            <p class="card-text">User does not have a bio yet</p>
+            {% if target_user.profile.bio %}
+            <p class="card-text">Bio: {{ target_user.profile.bio }}</p>
             {% endif %}
 
           </div>
           <ul class="list-group list-group-flush">
             {% if target_user.email %}
-            <li class="list-group-item">Email: {{ tagret_user.email }}</li>
+            <li class="list-group-item">Email: {{ target_user.email }}</li>
             {% else %}
             <p class="card-text">User does not have a email yet</p>
             {% endif %}
