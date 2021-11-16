@@ -1,6 +1,6 @@
 import requests
 from requests import Session
-import secrets
+from api import mysecrets
 import sys
 import argparse
 import logging
@@ -58,7 +58,7 @@ def main(args):
             return data
 
     def command_line(args):
-        crypto = CryptoCurrency(secrets.API_KEY)
+        crypto = CryptoCurrency(mysecrets.API_KEY)
         args_upper = args.upper()
         instance = crypto.get_price(args_upper)
         # pp(instance)

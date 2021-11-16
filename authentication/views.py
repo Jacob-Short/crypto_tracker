@@ -57,7 +57,7 @@ class RegisterView(View):
         signed_in_user = request.user
         template_name = "generic_form.html"
         form = RegisterForm()
-        context = {"signed_in_user": signed_in_user, "form": form, "header": "sign-up"}
+        context = {"signed_in_user": signed_in_user, "form": form, "header": "Register"}
 
         return render(request, template_name, context)
 
@@ -162,7 +162,7 @@ class CreateProfileView(View):
 
         form = CreateProfileForm()
         template = "generic_form.html"
-        context = {"form": form}
+        context = {"form": form, "header": "Create Your Profile"}
         return render(request, template, context)
 
     def post(self, request):
@@ -212,6 +212,7 @@ class EditProfileView(View):
             "signed_in_user": signed_in_user,
             "form": form,
             "profile_user": profile_user,
+            "header": "Edit Profile"
         }
         return render(request, template, context)
 
