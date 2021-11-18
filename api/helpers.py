@@ -1,5 +1,5 @@
 import requests
-import mysecrets
+from .mysecrets import API_KEY
 from pprint import pprint as pp
 
 
@@ -9,7 +9,7 @@ class CryptoCurrency:
         self.apiurl = "https://pro-api.coinmarketcap.com"
         self.headers = {
             "Accepts": "application/json",
-            "X-CMC_PRO_API_KEY": mysecrets.API_KEY,
+            "X-CMC_PRO_API_KEY": API_KEY,
         }
         self.session = requests.Session()
         self.session.headers.update(self.headers)

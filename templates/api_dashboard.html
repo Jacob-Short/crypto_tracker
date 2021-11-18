@@ -1,22 +1,39 @@
-{% extends 'base.html' %}
-{% load static %}
+{% extends 'base.html' %} {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard</title>
-</head>
-
-<body>
-  {% block content %}
-  <div>
-    <h3>Filter Cryptos</h3>
-    <h2>Trending Cryptos</h2>
-  </div>
-  {% endblock %}
-</body>
-
+  <body>
+    {% block content %}
+    <div>
+      {% for crypto in cryptos %}
+      <div class="card">
+        <div class="card-header">
+          <b>#{{ crypto.rank }} {{crypto.name}} ({{crypto.symbol}})</b>
+        </div>
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p>{{Crypto.quote}}</p>
+            <footer class="blockquote-footer">
+              <cite title="Source Title"
+                >First historical data: {{ crypto.first_historical_data }}</cite
+              >
+            </footer>
+            <footer class="blockquote-footer">
+              <cite title="Source Title"
+                >Last historical data: {{ crypto.last_historical_data }}</cite
+              >
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endblock %}
+  </body>
 </html>
