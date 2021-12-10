@@ -3,13 +3,13 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 # models
-from authentication.models import User
+from member.models import Member
 
 
 class FavoriteCrypto(models.Model):
     """users can save a crypto into their watch list"""
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(Member, on_delete=models.CASCADE)
     symbol = models.CharField(
         max_length=150,
         blank=True,

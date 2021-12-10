@@ -3,15 +3,8 @@ from django.views.generic import View, CreateView
 from .helpers import CryptoCurrency
 
 # models
-from authentication.models import User, Profile
+from member.models import Member, MemberProfile
 
-# forms
-from authentication.forms import (
-    RegisterForm,
-    LoginForm,
-    CreateProfileForm,
-    EditProfileForm,
-)
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin

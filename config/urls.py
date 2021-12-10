@@ -18,10 +18,14 @@ from django.urls import path
 
 from authentication.urls import urlpatterns as user_account_urls
 from api.urls import urlpatterns as api_urls
+from member.urls import urlpatterns as member_urls
+from home.urls import urlpatterns as home_urls
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
 ]
 
 urlpatterns += user_account_urls
 urlpatterns += api_urls
+urlpatterns += home_urls
+urlpatterns += member_urls
