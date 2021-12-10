@@ -1,12 +1,6 @@
 # crypto_tracker
 
-I am building this application to be able to search and track current crypto-currencies by entering in their crypto symbol. You can access the code inside of the crypto_tracker directory. Within that directory, there is 2 programs; 
-
-1. [cli]: main.py -> python main.py <symbol>
-2. [gui]: gui.py -> python main.py
-
-
-
+Application for friends to be able to be able to search and save crypto-currencies as weekly/monthly favorites. At the duration of the 'term' of the, the member with the most 'winnings' will earn points. The idea of the game stems from wanting to learn more about crypto currency and to gain the ability to automate real-time tracking using Python.
 
 ## Getting Started
 
@@ -16,7 +10,8 @@ for notes on deploying the project on a live system.
 
 ### Prerequisites
 
-Requirements for the software and other tools to build, test and push 
+Requirements for the software and other tools to build, test and push
+
 - [Poetry](https://python-poetry.org/)
 - [Python](https://www.python.org/)
 
@@ -25,7 +20,7 @@ Requirements for the software and other tools to build, test and push
 A step by step series of examples that tell you how to get a development
 environment running
 
-Download and install poetry 
+Download and install poetry
 
     Windows
 
@@ -43,33 +38,12 @@ Install dependencies
 
     poetry install
 
-Start CLI file
+Run server
 
-    python python main.py <SYMBOL>
-
-Start GUI file
-
-    python python gui.py
-
+    python manage.py runserver
 
 ## Built With
 
-  - [Python](https://www.python.org/) - Used
-    for the Code of Conduct
-  - [PySimpleGUI](https://pysimplegui.readthedocs.io/en/latest/) - Used to choose
-    the license
+- [Python](https://www.python.org/)
 
-
-## Authors
-
-  - **Jacob Short** 
-
-
-  - **Billie Thompson** - *Provided README Template* -
-    [PurpleBooth](https://github.com/PurpleBooth)
-
-
-
-
-
-
+- [Django](https://www.djangoproject.com/)
