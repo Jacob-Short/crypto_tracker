@@ -18,10 +18,10 @@ from django.contrib import messages
 class RegisterView(View):
     def get(self, request):
 
-        signed_in_user = request.user
+        signed_in_member = request.user
         template_name = "generic_form.html"
         form = RegisterForm()
-        context = {"signed_in_user": signed_in_user, "form": form, "header": "Register"}
+        context = {"signed_in_member": signed_in_member, "form": form, "header": "Register"}
 
         return render(request, template_name, context)
 
@@ -29,14 +29,14 @@ class RegisterView(View):
         form = RegisterForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            user = Member.objects.create_user(
+            member = Member.objects.create_user(
                 username=data.get("username"),
                 password=data.get("password"),
             )
 
             try:
                 messages.add_message(request, messages.SUCCESS, f"Login Successful")
-                login(request, user)
+                login(request, member)
                 return redirect("createprofile")
             except Exception as ex:
                 messages.add_message(request, messages.ERROR, f"Login Invalid")
@@ -47,10 +47,10 @@ class RegisterView(View):
 class LoginView(View):
     def get(self, request):
 
-        signed_in_user = request.user
+        signed_in_member = request.user
         template_name = "generic_form.html"
         form = LoginForm()
-        context = {"form": form, "header": "Login", "signed_in_user": signed_in_user}
+        context = {"form": form, "header": "Login", "signed_in_member": signed_in_member}
         return render(request, template_name, context)
 
     def post(self, request):

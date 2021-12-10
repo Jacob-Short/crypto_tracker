@@ -16,24 +16,23 @@
   
     {% block content %}
     <body>
-      {% if target_user == signed_in_user %}
+      {% if target_member == signed_in_member %}
       <div class='profile-container'>
-        <h3>Welcome in {{ signed_in_user.first_name }} </h3>
+        <h3>Welcome in {{ profile.first_name }} </h3>
 
         <div class="card" style="width: 26rem;">
-        {% if target_user.profile.profile_picture.url %}
-          <img src="{{ target_user.profile.profile_picture.url }}" class="card-img-top" alt="photo of user">
+        {% if profile.profile_picture.url %}
+          <img src="{{ profile.profile_picture.url }}" class="card-img-top" alt="photo of user">
           {% endif %}
           <div class="card-body">
-            <h5 class="card-title">{{ target_user }}</h5>
-            {% if target_user.profile.bio %}
-            <p class="card-text">Bio: {{ target_user.profile.bio }}</p>
+            <h5 class="card-title">{{ target_member }}</h5>
+            {% if profile.bio %}
+            <p class="card-text">Bio: {{ profile.bio }}</p>
             {% endif %}
-
           </div>
           <ul class="list-group list-group-flush">
-            {% if target_user.email %}
-            <li class="list-group-item">Email: {{ target_user.email }}</li>
+            {% if target_member.email %}
+            <li class="list-group-item">Email: {{ target_member.email }}</li>
             {% else %}
             <p class="card-text">User does not have a email yet</p>
             {% endif %}
@@ -41,7 +40,7 @@
           <div class="card-body">
             <a href="#" class="card-link">Messages</a>
             {% if profile %}
-            <a href="/edit_account/{{signed_in_user.id}}/" class="card-link">Edit Profile</a>
+            <a href="/edit_account/{{signed_in_member.id}}/" class="card-link">Edit Profile</a>
             {% else %}
             <a href="/createprofile/" class="card-link">Create Profile</a>
             {% endif %}
@@ -54,20 +53,20 @@
         <h3>{{ tagret_user.username }}'s Profile </h3>
 
         <div class="card" style="width: 18rem;">
-          <img src="{{ target_user.picture }}" class="card-img-top" alt="user_photo">
+          <img src="{{ target_member.picture }}" class="card-img-top" alt="user_photo">
           <div class="card-body">
-            <h5 class="card-title">Email: {{ target_user }}</h5>
-            {% if target_user.full_name %}
-            <h5 class="card-title">{{ target_user.full_name }}</h5>
+            <h5 class="card-title">Email: {{ target_member }}</h5>
+            {% if target_member.full_name %}
+            <h5 class="card-title">{{ target_member.full_name }}</h5>
             {% endif %}
-            <p class="card-text">Bio: {{ target_user.bio }}</p>
+            <p class="card-text">Bio: {{ target_member.bio }}</p>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">Staff: {{ tagret_user.is_staff }}</li>
           </ul>
           <div class="card-body">
-            <a href="/messages/{{ signed_in_user.id }}/" class="card-link">Send Message</a>
-            <a href="/user_posts/{{tagret_user.id}}/" class="card-link">{{ target_user.first_name }}'s Posts</a>
+            <a href="/messages/{{ signed_in_member.id }}/" class="card-link">Send Message</a>
+            <a href="/user_posts/{{tagret_user.id}}/" class="card-link">{{ target_member.first_name }}'s Posts</a>
           </div>
         </div>
         </div>

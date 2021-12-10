@@ -6,7 +6,7 @@ from django.conf import settings
 # TODO:
 # refactor views to member views
 urlpatterns = [
-    path("profile/<int:id>/", member_views.UserView.as_view(), name="profile"),
+    path("profile/<int:id>/", member_views.MemberView.as_view(), name="profile"),
     path(
         "createprofile/",
         member_views.CreateProfileView.as_view(),

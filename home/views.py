@@ -15,9 +15,9 @@ class IndexView(View):
 
     def get(self, request):
 
-        signed_in_user = request.user
+        signed_in_member = request.user
         template = "index.html"
-        context = {"signed_in_user": signed_in_user}
+        context = {"signed_in_member": signed_in_member}
         return render(request, template, context)
 
     def post(self, request):
@@ -29,9 +29,9 @@ class HomeView(View, LoginRequiredMixin):
 
     def get(self, request):
 
-        signed_in_user = request.user
+        signed_in_member = request.user
         template = "home.html"
-        context = {"signed_in_user": signed_in_user}
+        context = {"signed_in_member": signed_in_member}
         return render(request, template, context)
 
     def post(self, request):
@@ -40,6 +40,6 @@ class HomeView(View, LoginRequiredMixin):
 
 def about(request):
     template = "about.html"
-    signed_in_user = request.user
-    context = {"signed_in_user": signed_in_user}
+    signed_in_member = request.user
+    context = {"signed_in_member": signed_in_member}
     return render(request, template, context)

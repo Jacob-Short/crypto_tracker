@@ -15,27 +15,28 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 
 
-class UserView(View):
+class MemberView(View):
     """each users profile"""
 
     def get(self, request, id):
 
-        signed_in_user = request.user
-        target_user = Member.objects.get(id=id)
+        signed_in_member = request.user
+        target_member = Member.objects.get(id=id)
+        print(target_member)
 
         try:
-            profile = MemberProfile.objects.get(user=target_user)
+            profile = MemberProfile.objects.get(member=target_member)
         except Exception as err:
             print(err)
             profile = None
-        # print(f"Picture: {target_user.profile_picture}")
+        # print(f"Picture: {target_member.profile_picture}")
 
         template = "profile.html"
 
         # breakpoint()
         context = {
-            "signed_in_user": signed_in_user,
-            "target_user": target_user,
+            "signed_in_member": signed_in_member,
+            "target_member": target_member,
             "profile": profile,
         }
         return render(request, template, context)
@@ -49,8 +50,6 @@ class CreateProfileView(View):
 
     def get(self, request):
 
-        target_user = Member.objects.get(id=request.user.id)
-
         form = CreateProfileForm()
         template = "generic_form.html"
         context = {"form": form, "header": "Create Your Profile"}
@@ -58,14 +57,14 @@ class CreateProfileView(View):
 
     def post(self, request):
 
-        target_user = Member.objects.get(id=request.user.id)
+        target_member = Member.objects.get(id=request.user.id)
 
         form = CreateProfileForm(request.POST, request.FILES)
         if form.is_valid():
             data = form.cleaned_data
 
             profile = MemberProfile.objects.create(
-                member=target_user,
+                member=target_member,
                 first_name=data["first_name"],
                 last_name=data["last_name"],
                 # email=data["email"],
@@ -81,9 +80,9 @@ class EditProfileView(View):
     def get(self, request, id):
 
         template = "generic_form.html"
-        signed_in_user = request.user
+        signed_in_member = request.user
         try:
-            profile_user = Member.objects.get(user=signed_in_user)
+            profile_user = MemberProfile.objects.get(member=signed_in_member)
             form = EditProfileForm(
                 initial={
                     "first_name": profile_user.first_name,
@@ -102,7 +101,7 @@ class EditProfileView(View):
             )
             return redirect(reverse("profile", args=(id,)))
         context = {
-            "signed_in_user": signed_in_user,
+            "signed_in_member": signed_in_member,
             "form": form,
             "profile_user": profile_user,
             "header": "Edit Profile",
@@ -111,8 +110,8 @@ class EditProfileView(View):
 
     def post(self, request, id):
 
-        target_user = Member.objects.get(id=id)
-        profile_user = MemberProfile.objects.get(user=target_user)
+        target_member = Member.objects.get(id=id)
+        profile_user = MemberProfile.objects.get(user=target_member)
         form = EditProfileForm(request.POST, request.FILES)
         try:
             if form.is_valid():
@@ -124,7 +123,7 @@ class EditProfileView(View):
                 profile_user.save()
                 messages.add_message(
                     request,
-                    message="You have sucessful target_user.profile_picturely edited your profile.",
+                    message="You have sucessful target_member.profile_picturely edited your profile.",
                     level=messages.SUCCESS,
                 )
                 return redirect(reverse("profile", args=(id,)))
