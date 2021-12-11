@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.views.generic import View
 
 # models
-from messaging.models import Message
+from messaging.models import Message, MessageNotification
 from member.models import Member
 
 # forms
@@ -57,7 +57,7 @@ def member_messages(request, id):
         "member_messages": member_messages,
         "signed_in_member": signed_in_member,
         "target_member": target_member,
-        "message_count": message_count
+        "message_count": message_count,
     }
     return render(request, template, context)
 
@@ -77,3 +77,25 @@ def get_messages_count(logged_in_member):
 
     messages_count = len(member_messages)
     return messages_count
+
+
+def create_message_notification(message, tagged):
+    all_members = Member.objects.all()
+    names = [x.username for x in all_members]
+    print(names)
+    member_string = ""
+    member_string += str(tagged)
+    print(member_string)
+    target_member = Member.objects.get(username=member_string)
+    notification = MessageNotification.objects.create(
+        message=message,
+        member_notified=target_member,
+    )
+
+
+def notify_seen(request):
+    notification = MessageNotification.objects.all()[::-1]
+    seen_notification = notification[0]
+    seen_notification.is_new = False
+    seen_notification.save()
+    return HttpResponseRedirect(reverse("home"))
