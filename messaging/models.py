@@ -17,3 +17,25 @@ class Message(models.Model):
 
     def __str__(self):
         return self.body
+
+
+class MessageNotification(models.Model):
+
+    message = models.ForeignKey(
+        Message, related_name="%(class)s_message", null=True, on_delete=models.CASCADE
+    )
+    member_notified = models.ForeignKey(
+        Member,
+        related_name="%(class)s_member_notified",
+        null=True,
+        on_delete=models.CASCADE,
+    )
+
+    is_new = models.BooleanField(default=True)
+    time_notified = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.message
+
+    def notification_from(self):
+        return self.message.author
