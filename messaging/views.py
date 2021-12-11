@@ -35,12 +35,13 @@ class SendMessageView(View):
         if form.is_valid():
             data = form.cleaned_data
             new_message = Message.objects.create(
-                message=data["message"], author=request.user, recipient=recipient
+                body=data["body"], author=request.user, recipient=recipient
             )
+            create_message_notification(new_message, recipient)
             messages.add_message(
                 request, message="Message sent", level=messages.SUCCESS
             )
-            return HttpResponseRedirect(reverse("member-view", args=(request.id,)))
+            return HttpResponseRedirect(reverse("profile", args=(request.user.id,)))
 
 
 def member_messages(request, id):

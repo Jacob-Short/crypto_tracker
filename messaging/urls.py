@@ -5,7 +5,7 @@ from django.conf import settings
 
 urlpatterns = [
     path(
-        "message/<int:id>",
+        "send-message/<int:id>/",
         messaging_views.SendMessageView.as_view(),
         name="send-message",
     ),

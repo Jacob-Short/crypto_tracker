@@ -50,7 +50,7 @@
         </div>
         {% else %}
         <div class='profile-container'>
-        <h3>{{ tagret_user.username }}'s Profile </h3>
+        <h3>{{ target_member }}'s Profile </h3>
 
         <div class="card" style="width: 18rem;">
           <img src="{{ target_member.picture }}" class="card-img-top" alt="user_photo">
@@ -65,7 +65,7 @@
             <li class="list-group-item">Staff: {{ tagret_user.is_staff }}</li>
           </ul>
           <div class="card-body">
-            <a href="/messages/{{ signed_in_member.id }}/" class="card-link">Send Message</a>
+            <a href="/send-message/{{ target_member.id }}/" class="card-link">Send Message</a>
             <a href="/user_posts/{{tagret_user.id}}/" class="card-link">{{ target_member.first_name }}'s Posts</a>
           </div>
         </div>

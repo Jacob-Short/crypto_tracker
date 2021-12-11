@@ -34,6 +34,7 @@ class MemberView(View):
         template = "profile.html"
 
         # breakpoint()
+        print(target_member)
         context = {
             "signed_in_member": signed_in_member,
             "target_member": target_member,

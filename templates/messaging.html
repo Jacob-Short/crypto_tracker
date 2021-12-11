@@ -24,15 +24,15 @@
     <h2>No new messages</h2>
     {% else %}
     <div class="messages-container">
-      {% for item in messages %}
+      {% for item in member_messages %}
       <div class="card text-white bg-success mb-3" style="max-width: 20rem">
-        <div class="card-header" style="background: darkgreen">
+        <div class="card-header" style="background: blue">
           Message from:
           <a
             href="/profile/{{item.author.id}}/"
             style="text-decoration: none; color: white"
           >
-            <img
+            {% comment %} <img
               src="{{item.author.picture.url}}"
               alt="Your profile photo"
               style="
@@ -42,18 +42,18 @@
                 margin-left: 30px;
                 cursor: pointer;
               "
-            />
+            /> {% endcomment %}
             {{ item.author }}
           </a>
         </div>
         <div class="card-body">
-          <h4 class="card-title">{{ item.message }}</h4>
-          <p class="card-text">at: {{ item.date }}</p>
+          <h4 class="card-title">{{ item.body }}</h4>
+          <p class="card-text">at: {{ item.time_sent }}</p>
         </div>
         <a href="/delete/message/{{item.id}}">
           <button>Delete</button>
         </a>
-        <a href="/message/user/{{item.author.id}}">
+        <a href="/send-message/{{ item.author.id }}/">
           <button>reply</button>
         </a>
       </div>
