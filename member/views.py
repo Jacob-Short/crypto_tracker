@@ -10,6 +10,9 @@ from member.forms import (
     EditProfileForm,
 )
 
+# message count
+from messaging.views import get_messages_count
+
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -21,6 +24,7 @@ class MemberView(View):
     def get(self, request, id):
 
         signed_in_member = request.user
+        message_count = get_messages_count(signed_in_member)
         target_member = Member.objects.get(id=id)
         print(target_member)
 
@@ -39,6 +43,7 @@ class MemberView(View):
             "signed_in_member": signed_in_member,
             "target_member": target_member,
             "profile": profile,
+            "message_count": message_count,
         }
         return render(request, template, context)
 
