@@ -5,8 +5,8 @@ from .helpers import CryptoCurrency
 # models
 from member.models import Member, MemberProfile
 
-# message count
-from messaging.views import get_messages_count
+# message & notification count
+from messaging.views import get_messages_count, get_notifications_count
 
 
 from django.contrib.auth import authenticate, login, logout
@@ -24,6 +24,7 @@ class Dashboard(View):
         template = "api_dashboard.html"
         signed_in_member = request.user
         message_count = get_messages_count(signed_in_member)
+        notification_count = get_notifications_count(signed_in_member)
 
         cryptos = CryptoCurrency().get_all_coins()
 
@@ -34,6 +35,7 @@ class Dashboard(View):
             "signed_in_member": signed_in_member,
             "cryptos": cryptos,
             "message_count": message_count,
+            "notification_count": notification_count,
         }
         return render(request, template, context)
 

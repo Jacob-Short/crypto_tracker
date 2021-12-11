@@ -73,7 +73,7 @@
                 <a class="nav-link active" aria-current="page" href="/my-ct/">My cT</a>
               </li>
           </ul>
-          <a class="nav-link active" aria-current="page" href="#">Notifications: 0</a>
+          <a class="nav-link active" aria-current="page" href="/my-notifications/{{signed_in_member.id}}/">Notifications: {{ notification_count }}</a>
           <a class="nav-link active" aria-current="page" href="/my-messages/{{signed_in_member.id}}/">Messages: {{ message_count }}</a>
           <a class="nav-link active" aria-current="page" href="/profile/{{signed_in_member.id}}/">{{signed_in_member.username}}</a>
           <form class="d-flex">

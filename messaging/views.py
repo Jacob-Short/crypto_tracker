@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, reverse, HttpResponseRedirect
 from django.contrib import messages
 from django.views.generic import View
+from django.db.models import Q
 
 # models
 from messaging.models import Message, MessageNotification
@@ -52,13 +53,16 @@ def member_messages(request, id):
     target_member = Member.objects.get(id=request.user.id)
     signed_in_member = Member.objects.get(id=id)
 
-    member_messages = Message.objects.filter(recipient=signed_in_member)
     message_count = get_messages_count(signed_in_member)
+    notification_count = get_notifications_count(signed_in_member)
+
+    member_messages = Message.objects.filter(recipient=signed_in_member)
     context = {
         "member_messages": member_messages,
         "signed_in_member": signed_in_member,
         "target_member": target_member,
         "message_count": message_count,
+        "notification_count": notification_count,
     }
     return render(request, template, context)
 
@@ -94,9 +98,44 @@ def create_message_notification(message, tagged):
     )
 
 
-def notify_seen(request):
-    notification = MessageNotification.objects.all()[::-1]
-    seen_notification = notification[0]
-    seen_notification.is_new = False
-    seen_notification.save()
-    return HttpResponseRedirect(reverse("home"))
+def member_notifications(request, id):
+    """members can view all of their notifications"""
+
+    template = "notifications.html"
+    signed_in_member = Member.objects.get(id=id)
+
+    message_count = get_messages_count(signed_in_member)
+    notification_count = get_notifications_count(signed_in_member)
+
+    new_member_notifications = MessageNotification.objects.filter(
+        Q(member_notified=signed_in_member) & Q(is_new=True)
+    )
+    old_member_notifications = MessageNotification.objects.filter(
+        Q(member_notified=signed_in_member) & Q(is_new=False)
+    )
+
+    context = {
+        "old_member_notifications": old_member_notifications,
+        "new_member_notifications": new_member_notifications,
+        "signed_in_member": signed_in_member,
+        "message_count": message_count,
+        "notification_count": notification_count,
+    }
+    for notification in new_member_notifications:
+        notify_seen(notification)
+    return render(request, template, context)
+
+
+def get_notifications_count(logged_in_member):
+    """return count of active message"""
+    signed_in_member = logged_in_member
+    new_member_notifications = MessageNotification.objects.filter(
+        Q(member_notified=signed_in_member) & Q(is_new=True)
+    )
+
+    return len(new_member_notifications)
+
+
+def notify_seen(notification):
+    notification.is_new = False
+    notification.save()

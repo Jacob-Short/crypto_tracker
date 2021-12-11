@@ -10,4 +10,5 @@ urlpatterns = [
         name="send-message",
     ),
     path("my-messages/<int:id>/", messaging_views.member_messages, name="my-messages"),
+    path("my-notifications/<int:id>/", messaging_views.member_notifications, name="my-notifications"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -5,7 +5,7 @@ from django.views.generic import View, CreateView
 from member.models import Member, MemberProfile
 
 # message count
-from messaging.views import get_messages_count
+from messaging.views import get_messages_count, get_notifications_count
 
 
 from django.contrib.auth import authenticate, login, logout
@@ -34,8 +34,13 @@ class HomeView(View, LoginRequiredMixin):
 
         signed_in_member = request.user
         message_count = get_messages_count(signed_in_member)
+        notification_count = get_notifications_count(signed_in_member)
         template = "home.html"
-        context = {"signed_in_member": signed_in_member, "message_count": message_count}
+        context = {
+            "signed_in_member": signed_in_member,
+            "message_count": message_count,
+            "notification_count": notification_count,
+        }
         return render(request, template, context)
 
     def post(self, request):
@@ -46,6 +51,11 @@ def about(request):
     template = "about.html"
     signed_in_member = request.user
     message_count = get_messages_count(signed_in_member)
+    notification_count = get_messages_count(signed_in_member)
 
-    context = {"signed_in_member": signed_in_member, "message_count": message_count}
+    context = {
+        "signed_in_member": signed_in_member,
+        "message_count": message_count,
+        "notification_count": notification_count,
+    }
     return render(request, template, context)

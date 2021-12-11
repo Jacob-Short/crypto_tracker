@@ -35,7 +35,7 @@ class MessageNotification(models.Model):
     time_notified = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
-        return self.message
+        return self.message.body
 
     def notification_from(self):
         return self.message.author
