@@ -19,12 +19,11 @@
       <h1>Messages for {{ target_member.username }}</h1>
     </div>
     {% if target_member.username == signed_in_member.username %}
-
-    {% if message_count == 0 %}
-    <h2>No new messages</h2>
-    {% else %}
     <div class="messages-container">
-      {% for item in member_messages %}
+      {% if message_count != 0 %}
+        <h3>New Messages</h3>
+      {% endif %}
+      {% for item in new_member_messages %}
       <div class="card text-white bg-success mb-3" style="max-width: 20rem">
         <div class="card-header" style="background: blue">
           Message from:
@@ -32,7 +31,8 @@
             href="/profile/{{item.author.id}}/"
             style="text-decoration: none; color: white"
           >
-            {% comment %} <img
+            {% comment %}
+            <img
               src="{{item.author.picture.url}}"
               alt="Your profile photo"
               style="
@@ -42,8 +42,8 @@
                 margin-left: 30px;
                 cursor: pointer;
               "
-            /> {% endcomment %}
-            {{ item.author }}
+            />
+            {% endcomment %} {{ item.author }}
           </a>
         </div>
         <div class="card-body">
@@ -59,7 +59,45 @@
       </div>
       {% endfor %}
     </div>
-    {% endif %}
+
+    <div class="messages-container">
+      <h3>Old Messages</h3>
+      {% for item in old_member_messages %}
+      <div class="card text-white bg-success mb-3" style="max-width: 20rem">
+        <div class="card-header" style="background: blue">
+          Message from:
+          <a
+            href="/profile/{{item.author.id}}/"
+            style="text-decoration: none; color: white"
+          >
+            {% comment %}
+            <img
+              src="{{item.author.picture.url}}"
+              alt="Your profile photo"
+              style="
+                height: 40px;
+                width: 40px;
+                border-radius: 20px;
+                margin-left: 30px;
+                cursor: pointer;
+              "
+            />
+            {% endcomment %} {{ item.author }}
+          </a>
+        </div>
+        <div class="card-body">
+          <h4 class="card-title">{{ item.body }}</h4>
+          <p class="card-text">at: {{ item.time_sent }}</p>
+        </div>
+        <a href="/delete/message/{{item.id}}">
+          <button>Delete</button>
+        </a>
+        <a href="/send-message/{{ item.author.id }}/">
+          <button>reply</button>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
     {% else %}
     <div>
       <h2>You do not have access to view this users messages</h2>

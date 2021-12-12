@@ -31,8 +31,8 @@
   {% for noti in old_member_notifications %}
   <div class="card" style="width: 18rem; ">
       <div class="card-body"">
-        <h5 class="card-title" style="color: grey;"><b>Someone Commented On:</b> {{noti}}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">User Notified: {{noti}}</h6>
+        <h5 class="card-title" style="color: grey;"><b>{{ noti.message.author }} nessaged you on:</b> {{ noti.time_notified }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted"><b>Notification:</b> {{noti}}</h6>
       </div>
     </div>
   {% endfor %}

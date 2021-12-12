@@ -53,17 +53,25 @@ def member_messages(request, id):
     target_member = Member.objects.get(id=request.user.id)
     signed_in_member = Member.objects.get(id=id)
 
-    message_count = get_messages_count(signed_in_member)
+    message_count = get_new_messages_count(signed_in_member)
     notification_count = get_notifications_count(signed_in_member)
 
-    member_messages = Message.objects.filter(recipient=signed_in_member)
+    old_member_messages = Message.objects.filter(
+        Q(recipient=signed_in_member) & Q(is_new=False)
+    ).order_by("-time_sent")
+    new_member_messages = Message.objects.filter(
+        Q(recipient=signed_in_member) & Q(is_new=True)
+    ).order_by("-time_sent")
     context = {
-        "member_messages": member_messages,
+        "old_member_messages": old_member_messages,
+        "new_member_messages": new_member_messages,
         "signed_in_member": signed_in_member,
         "target_member": target_member,
         "message_count": message_count,
         "notification_count": notification_count,
     }
+    for message in new_member_messages:
+        message_seen(message)
     return render(request, template, context)
 
 
@@ -75,10 +83,12 @@ def delete_message(request, id):
     return HttpResponseRedirect(reverse("my-messages", args=(user_id,)))
 
 
-def get_messages_count(logged_in_member):
+def get_new_messages_count(logged_in_member):
     """return count of active message"""
     signed_in_member = logged_in_member
-    member_messages = Message.objects.filter(recipient=signed_in_member)
+    member_messages = Message.objects.filter(
+        Q(recipient=signed_in_member) & Q(is_new=True)
+    )
 
     messages_count = len(member_messages)
     return messages_count
@@ -104,7 +114,7 @@ def member_notifications(request, id):
     template = "notifications.html"
     signed_in_member = Member.objects.get(id=id)
 
-    message_count = get_messages_count(signed_in_member)
+    message_count = get_new_messages_count(signed_in_member)
     notification_count = get_notifications_count(signed_in_member)
 
     new_member_notifications = MessageNotification.objects.filter(
@@ -139,3 +149,8 @@ def get_notifications_count(logged_in_member):
 def notify_seen(notification):
     notification.is_new = False
     notification.save()
+
+
+def message_seen(message):
+    message.is_new = False
+    message.save()

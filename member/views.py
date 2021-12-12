@@ -11,7 +11,7 @@ from member.forms import (
 )
 
 # message count
-from messaging.views import get_messages_count, get_notifications_count
+from messaging.views import get_new_messages_count, get_notifications_count
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -24,8 +24,8 @@ class MemberView(View):
     def get(self, request, id):
 
         signed_in_member = request.user
-        message_count = get_messages_count(signed_in_member)
-        notifications_count = get_notifications_count(signed_in_member)
+        message_count = get_new_messages_count(signed_in_member)
+        notification_count = get_notifications_count(signed_in_member)
         target_member = Member.objects.get(id=id)
         print(target_member)
 
@@ -45,7 +45,7 @@ class MemberView(View):
             "target_member": target_member,
             "profile": profile,
             "message_count": message_count,
-            "notifications_count": notifications_count,
+            "notification_count": notification_count,
         }
         return render(request, template, context)
 
