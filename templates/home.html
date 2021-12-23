@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,15 +8,173 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home</title>
+  <link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'css/style.css' %}"
+/>
+  <title>Homepage</title>
 </head>
 
 <body>
   {% block content %}
-  <div>
-    <h1>Welcome {{ signed_in_member.username }}!</h1>
+
+    {% if messages %}
+      {% for message in messages %}
+    
+        <div class="alert alert-danger" role="alert" displayLength:5000>
+          {{message}}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+<div id="homepage">
+  <div class="homepage-header">
+    <h1>Welcome to the Crypto Tracker</h1>
+      <p>______________________________________________________________</p>
+      <br>
+    <h4>Detail of site</h4>
+      <br>
   </div>
+
+
+<div id="homepage-container">
+  <div id="carousel-container">    
+      <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+          aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+          aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+          aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner" style="border-bottom: 3px solid #ffc107;">
+          <div class="carousel-item active" data-bs-interval="1500">
+            <img src="" class="d-block w-100" style= "height: 500px" alt="bitcoin-icon">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Bitcoin</h5>
+            </div>
+          </div>
+          <div class="carousel-item" data-bs-interval="1500">
+            <img src="" class="d-block w-100" style= "height: 500px" alt="etherium-icon">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Etherium</h5>
+            </div>
+          </div>
+          <div class="carousel-item" data-bs-interval="1500">
+            <img src="" class="d-block w-100" style= "height: 500px" alt="litecoin-icon">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Litecoin</h5>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+        data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+      data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+</div>
+</div>
+
+<div class="homepage-container">
+<div class="homepage-item" style="width: 350px; border-right: 3px solid #ffc107; padding-right: 40px; margin-left: 20px;">
+<h2>Most Active</h2>
+<br>
+{% comment %} {% for x  in y|slice:":4" %} {% endcomment %}
+<div class="card" style="background-color: #ffc107; font-weight: bold; box-shadow: 1px 1px 30px black;">
+  <div class="card-header">
+      Crypto-Name:
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <a href='#'>
+        <p>details...</p>
+        <p>links...</p>
+      </a>
+    </blockquote>
+    <br>
+    <blockquote class="blockquote mb-0">
+
+    <a href="#">
+      <footer class="blockquote-footer">  <cite title="Source Title">
+      Last Move: 
+      </cite></footer>
+    </a>
+  </blockquote>
+  </div>
+</div>
+{% comment %} {% endfor %} {% endcomment %}
+  </div>
+
+  <div class="homepage-item" style="width: 350px; border-right: 3px solid #ffc107; padding-right: 40px; margin-left: 20px;">
+    <h2>My Watchlist</h2>
+    <br>
+    {% comment %} {% for x  in y|slice:":4" %} {% endcomment %}
+    <div class="card" style="background-color: #ffc107; font-weight: bold; box-shadow: 1px 1px 30px black;">
+      <div class="card-header">
+          Crypto-Name:
+      </div>
+      <div class="card-body">
+        <blockquote class="blockquote mb-0">
+          <a href='#'>
+            <p>details...</p>
+            <p>links...</p>
+          </a>
+        </blockquote>
+        <br>
+        <blockquote class="blockquote mb-0">
+    
+        <a href="#">
+          <footer class="blockquote-footer">  <cite title="Source Title">
+          Last Move: 
+          </cite></footer>
+        </a>
+      </blockquote>
+      </div>
+    </div>
+    {% comment %} {% endfor %} {% endcomment %}
+      </div>
+
+      <div class="homepage-item" style="width: 350px; border-right: 3px solid #ffc107; padding-right: 40px; margin-left: 20px;">
+        <h2>Trending</h2>
+        <br>
+        {% comment %} {% for x  in y|slice:":4" %} {% endcomment %}
+        <div class="card" style="background-color: #ffc107; font-weight: bold; box-shadow: 1px 1px 30px black;">
+          <div class="card-header">
+              Crypto-Name:
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <a href='#'>
+                <p>details...</p>
+                <p>links...</p>
+              </a>
+            </blockquote>
+            <br>
+            <blockquote class="blockquote mb-0">
+        
+            <a href="#">
+              <footer class="blockquote-footer">  <cite title="Source Title">
+              Last Move: 
+              </cite></footer>
+            </a>
+          </blockquote>
+          </div>
+        </div>
+        {% comment %} {% endfor %} {% endcomment %}
+          </div>
+
+</div>
   {% endblock %}
 </body>
 
 </html>
+

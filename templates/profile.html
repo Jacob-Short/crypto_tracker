@@ -38,7 +38,7 @@
             {% endif %}
           </ul>
           <div class="card-body">
-            <a href="#" class="card-link">Messages</a>
+            <a href="/my-messages/{{signed_in_member.id}}/" class="card-link">Messages</a>
             {% if profile %}
             <a href="/edit_account/{{signed_in_member.id}}/" class="card-link">Edit Profile</a>
             {% else %}
