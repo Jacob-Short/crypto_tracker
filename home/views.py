@@ -27,7 +27,7 @@ class IndexView(View):
         ...
 
 
-class HomeView(View, LoginRequiredMixin):
+class HomeView(LoginRequiredMixin, View):
     """index page upon coming to site"""
 
     def get(self, request):

@@ -9,7 +9,7 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
 
     def clean(self):
-        super(RegisterForm, self).clean()
+        super(LoginForm, self).clean()
 
         # get fields from form
         username = self.cleaned_data.get("username")
