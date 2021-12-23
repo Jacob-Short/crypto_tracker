@@ -21,7 +21,11 @@ class RegisterView(View):
         signed_in_member = request.user
         template_name = "generic_form.html"
         form = RegisterForm()
-        context = {"signed_in_member": signed_in_member, "form": form, "header": "Register"}
+        context = {
+            "signed_in_member": signed_in_member,
+            "form": form,
+            "header": "Register",
+        }
 
         return render(request, template_name, context)
 
@@ -29,19 +33,25 @@ class RegisterView(View):
         form = RegisterForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            member = Member.objects.create_user(
-                username=data.get("username"),
-                password=data.get("password"),
-            )
 
             try:
+                member = Member.objects.create_user(
+                    username=data.get("username"),
+                    password=data.get("password"),
+                )
                 messages.add_message(request, messages.SUCCESS, f"Login Successful")
                 login(request, member)
                 return redirect("createprofile")
-            except Exception as ex:
+            except Exception as err:
                 messages.add_message(request, messages.ERROR, f"Login Invalid")
-                print("Something went wrong….", ex)
-                return redirect(reverse("login"))
+                return redirect(reverse("register"))
+        elif "existing-username" in form._errors:
+            messages.add_message(request, messages.ERROR, form._errors)
+            return redirect(reverse("register"))
+        else:
+            messages.add_message(request, messages.ERROR, f"Registration failed")
+            print("Something went wrong...")
+            return redirect(reverse("register"))
 
 
 class LoginView(View):
@@ -50,7 +60,11 @@ class LoginView(View):
         signed_in_member = request.user
         template_name = "generic_form.html"
         form = LoginForm()
-        context = {"form": form, "header": "Login", "signed_in_member": signed_in_member}
+        context = {
+            "form": form,
+            "header": "Login",
+            "signed_in_member": signed_in_member,
+        }
         return render(request, template_name, context)
 
     def post(self, request):
