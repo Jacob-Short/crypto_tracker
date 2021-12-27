@@ -83,7 +83,7 @@ def delete_message(request, id):
     return HttpResponseRedirect(reverse("my-messages", args=(user_id,)))
 
 
-def get_new_messages_count(logged_in_member):
+def get_new_messages_count(logged_in_member) -> int:
     """return count of active message"""
     signed_in_member = logged_in_member
     member_messages = Message.objects.filter(
@@ -94,7 +94,7 @@ def get_new_messages_count(logged_in_member):
     return messages_count
 
 
-def create_message_notification(message, tagged):
+def create_message_notification(message, tagged) -> None:
     all_members = Member.objects.all()
     names = [x.username for x in all_members]
     print(names)
@@ -136,7 +136,7 @@ def member_notifications(request, id):
     return render(request, template, context)
 
 
-def get_notifications_count(logged_in_member):
+def get_notifications_count(logged_in_member) -> int:
     """return count of active message"""
     signed_in_member = logged_in_member
     new_member_notifications = MessageNotification.objects.filter(
@@ -146,11 +146,11 @@ def get_notifications_count(logged_in_member):
     return len(new_member_notifications)
 
 
-def notify_seen(notification):
+def notify_seen(notification) -> None:
     notification.is_new = False
     notification.save()
 
 
-def message_seen(message):
+def message_seen(message) -> None:
     message.is_new = False
     message.save()
